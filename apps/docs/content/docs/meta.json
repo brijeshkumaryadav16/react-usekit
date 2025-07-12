@@ -6,6 +6,7 @@
     "---Hooks---",
     "hooks/use-boolean",
     "hooks/use-click-outside",
+    "hooks/use-copy-to-clipboard",
     "hooks/use-debounce-value",
     "hooks/use-debounce-fun",
     "hooks/use-event-listener",

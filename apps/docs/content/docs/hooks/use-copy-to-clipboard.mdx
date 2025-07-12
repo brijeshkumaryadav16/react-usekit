@@ -1,0 +1,49 @@
+---
+title: useCopyToClipboard
+description: A custom hook to copy text to the clipboard in React applications.
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Installation
+
+```bash
+npx react-usekit@latest init
+```
+
+<Callout type="info">
+  Select: hooks → TypeScript or JavaScript → path -> useCopyToClipboard
+</Callout>
+
+## Usage
+
+```tsx
+import { useCopyToClipboard } from "./hooks/useCopyToClipboard";
+
+function App() {
+  const { copy, copied, error } = useCopyToClipboard();
+
+  const handleCopy = () => {
+    copy("Hello from clipboard!");
+  };
+
+  return (
+    <div>
+      <button onClick={handleCopy}>
+        {copied ? "Copied!" : "Copy Text"}
+      </button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
+  );
+}
+```
+
+## API
+
+### Returns
+
+| Name          | Type                                    | Description                               |
+| ------------- | --------------------------------------- | ----------------------------------------- |
+| `copy`       | `(text: string) => Promise<boolean>`                                     | Function to copy the given text                         |
+| `copied`    | `boolean`                | Indicates whether the copy was successful
+| `error` | `string \| null`                            | Error message if copying failed |
