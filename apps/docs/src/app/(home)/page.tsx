@@ -104,7 +104,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="hidden md:justify-center md:items-center md:flex">
+            <div className="justify-center items-center flex">
               <AnimatedTerminal />
             </div>
           </div>
