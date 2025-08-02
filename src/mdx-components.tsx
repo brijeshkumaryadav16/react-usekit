@@ -4,6 +4,12 @@ import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
+import {
+  CodeTabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "./components/ui/code-tabs";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -13,6 +19,10 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...FilesComponents,
     Accordion,
     Accordions,
+    CodeTabs,
+    TabsList,
+    TabsTrigger,
+    TabsContent,
     ...components,
   };
 }

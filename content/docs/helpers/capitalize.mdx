@@ -3,14 +3,36 @@ title: capitalize
 description: Capitalize the first letter of a string.
 ---
 
-import { Callout } from "fumadocs-ui/components/callout";
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/capitalize.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/capitalize.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="lib/capitalize.ts"
+    /**
+     * Capitalize the first letter of a string.
+     * @param str - The string to capitalize.
+     * @returns The string with the first letter capitalized.
+     */
+    export function capitalize(str: string): string {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 

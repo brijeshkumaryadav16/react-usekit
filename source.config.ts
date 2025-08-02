@@ -27,25 +27,49 @@ export default defineConfig({
         {
           name: "pnpm",
           command: (command) => {
-            return command.replace(/^npm install /, "pnpm dlx ");
+            if (command.startsWith("npx")) {
+              return command.replace(/^npx /, "pnpm dlx ");
+            }
+            if (command.startsWith("npm")) {
+              return command.replace(/^npm install /, "pnpm add ");
+            }
+            return command;
           },
         },
         {
           name: "npm",
           command: (command) => {
-            return command.replace(/^npm install /, "npx ");
+            if (command.startsWith("npx")) {
+              return command;
+            }
+            if (command.startsWith("npm")) {
+              return command;
+            }
+            return command;
           },
         },
         {
           name: "yarn",
           command: (command) => {
-            return command.replace(/^npm install /, "yarn ");
+            if (command.startsWith("npx")) {
+              return command.replace(/^npx /, "yarn ");
+            }
+            if (command.startsWith("npm")) {
+              return command.replace(/^npm install /, "yarn add ");
+            }
+            return command;
           },
         },
         {
           name: "bun",
           command: (command) => {
-            return command.replace(/^npm install /, "bunx --bun ");
+            if (command.startsWith("npx")) {
+              return command.replace(/^npx /, "bunx --bun ");
+            }
+            if (command.startsWith("npm")) {
+              return command.replace(/^npm install /, "bun add ");
+            }
+            return command;
           },
         },
       ],

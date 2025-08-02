@@ -5,9 +5,55 @@ description: A custom hook that sets up a timeout to call a callback function af
 
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/use-timeout.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/use-timeout.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="hooks/use-timeout.ts"
+    import { useEffect, useLayoutEffect, useRef } from "react";
+
+    /**
+     * A custom hook that sets up a timeout to call a callback function after a specified delay.
+     * @param callback - The function to be called after the timeout.
+     * @param delay - The time in milliseconds before calling the callback. If null, the timeout is not set.
+     */
+    const useIsomorphicLayoutEffect =
+      typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+    export function useTimeout(callback: () => void, delay: number | null): void {
+      const savedCallback = useRef(callback);
+
+      // Remember the latest callback if it changes.
+      useIsomorphicLayoutEffect(() => {
+        savedCallback.current = callback;
+      }, [callback]);
+
+      useEffect(() => {
+        if (delay === null || delay < 0) {
+          return;
+        }
+
+        const tick = () => savedCallback.current();
+        const id = setTimeout(tick, delay);
+
+        return () => clearTimeout(id);
+      }, [delay]);
+    }
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 

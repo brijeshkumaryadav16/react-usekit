@@ -5,9 +5,34 @@ description: A custom hook that provides a cross-platform compatible useLayoutEf
 
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/use-isomorphic-layout-effect.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/use-isomorphic-layout-effect.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="hooks/use-isomorphic-layout-effect.ts"
+    import { useEffect, useLayoutEffect } from "react";
+
+    /**
+     * A custom hook that provides a cross-platform compatible `useLayoutEffect`.
+     * It uses `useEffect` on the server and `useLayoutEffect` on the client.
+     */
+    export const useIsomorphicLayoutEffect =
+      typeof window !== "undefined" ? useLayoutEffect : useEffect;
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 

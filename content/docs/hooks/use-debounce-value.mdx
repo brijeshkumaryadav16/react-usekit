@@ -5,9 +5,49 @@ description: A custom hook that debounces a value.
 
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/use-debounce-value.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/use-debounce-value.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="hooks/use-debounce-value.ts"
+    import { useEffect, useState } from "react";
+
+    /**
+     * A custom hook that debounces a value.
+     * @param value The value to debounce.
+     * @param delay The debounce delay in milliseconds.
+     * @returns The debounced value.
+     */
+    export function useDebounceValue<T>(value: T, delay: number): T {
+      const [debouncedValue, setDebouncedValue] = useState(value);
+
+      useEffect(() => {
+        const handler = setTimeout(() => {
+          setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+          clearTimeout(handler);
+        };
+      }, [value, delay]);
+
+      return debouncedValue;
+    }
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 

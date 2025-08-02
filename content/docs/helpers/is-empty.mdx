@@ -5,9 +5,55 @@ description: Check if a value is empty (null, undefined, empty string, array, or
 
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/is-empty.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/is-empty.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="lib/is-empty.ts"
+    /**
+     * Check if a value is empty (null, undefined, empty string, array, or object).
+     * @param value - The value to check.
+     * @returns True if the value is empty, false otherwise.
+     */
+    export function isEmpty(value: any): boolean {
+      // null or undefined
+      if (value == null) {
+        return true;
+      }
+
+      // String (including whitespace-only strings)
+      if (typeof value === "string") {
+        return value.trim().length === 0;
+      }
+
+      // Array
+      if (Array.isArray(value)) {
+        return value.length === 0;
+      }
+
+      // Object (plain objects only)
+      if (typeof value === "object" && value.constructor === Object) {
+        return Object.keys(value).length === 0;
+      }
+
+      // For other types (numbers, booleans, functions, etc.), consider them not empty
+      return false;
+    }
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 

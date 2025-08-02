@@ -13,8 +13,8 @@ const inter = Inter({
 
 export const metadata: Metadata = createMetadata({
   title: {
-    default: "Reactusekit",
-    template: "%s | Reactusekit",
+    default: "ReactUseKit",
+    template: "%s | ReactUseKit",
   },
   description:
     "React Hooks & Helpers Collection - Copy, Paste, or Install with shadcn CLI",

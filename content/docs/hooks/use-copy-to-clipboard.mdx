@@ -5,17 +5,72 @@ description: A custom hook to copy text to the clipboard in React applications.
 
 ## Installation
 
-```package-install
-shadcn@latest add "https://react-usekit.vercel.app/r/use-copy-to-clipboard.json"
-```
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="cli">
+    ```package-install
+    npx shadcn@latest add https://react-usekit.vercel.app/r/use-copy-to-clipboard.json
+    ```
+  </TabsContent>
+  
+  <TabsContent value="manual">
+    Copy and paste the following code into your project.
+
+    ```ts title="hooks/use-copy-to-clipboard.ts"
+    import { useCallback, useState } from "react";
+
+    /**
+     * Custom hook to copy text to clipboard.
+     * @returns {Object} An object containing the copy function, copied state, and error state.
+     */
+    interface UseCopyToClipboardResult {
+      copy: (text: string) => Promise<boolean>;
+      copied: boolean;
+      error: string | null;
+    }
+
+    export function useCopyToClipboard(): UseCopyToClipboardResult {
+      const [copied, setCopied] = useState(false);
+      const [error, setError] = useState<string | null>(null);
+
+      const copy = useCallback(async (text: string): Promise<boolean> => {
+        if (!navigator?.clipboard) {
+          setError("Clipboard API not supported");
+          return false;
+        }
+
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          setError(null);
+
+          setTimeout(() => setCopied(false), 2000);
+          return true;
+        } catch (err) {
+          setError("Failed to copy");
+          setCopied(false);
+          return false;
+        }
+      }, []);
+
+      return { copy, copied, error };
+    }
+    ```
+
+  </TabsContent>
+</CodeTabs>
 
 ## Usage
 
 ```tsx
-import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"; // [!code highlight]
 
 function App() {
-  const { copy, copied, error } = useCopyToClipboard();
+  const { copy, copied, error } = useCopyToClipboard(); // [!code highlight]
 
   const handleCopy = () => {
     copy("Hello from clipboard!");
